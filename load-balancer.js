@@ -1,10 +1,14 @@
 const http = require("http");
 
-const backendServers = [
-  { address: "localhost", port: 5000, weight: 5, currentWeight: 0 },
-  { address: "localhost", port: 5001, weight: 2, currentWeight: 0 },
-  { address: "localhost", port: 5002, weight: 1, currentWeight: 0 },
-];
+
+const backendServers = JSON.parse(fs.readFileSync('backendServers.json', 'utf8'));
+
+
+// const backendServers = [
+//   { address: "localhost", port: 5000, weight: 5, currentWeight: 0 },
+//   { address: "localhost", port: 5001, weight: 2, currentWeight: 0 },
+//   { address: "localhost", port: 5002, weight: 1, currentWeight: 0 },
+// ];
 
 function selectServer(servers) {
   for (let i = 0; i < servers.length; i++) {
