@@ -1,11 +1,16 @@
 const http = require("http");
 const crypto = require("crypto");
+const fs = require('fs');
 
-const backendServers = [
-  { address: "localhost", port: 3000 },
-  { address: "localhost", port: 3001 },
-  { address: "localhost", port: 3002 },
-];
+//read file backendServers.json
+
+const backendServers = JSON.parse(fs.readFileSync('backendServers.json', 'utf8'));
+
+// const backendServers = [
+//   { address: "localhost", port: 3000 },
+//   { address: "localhost", port: 3001 },
+//   { address: "localhost", port: 3002 },
+// ];
 
 function hashServer(key) {
   const hash = crypto.createHash("md5").update(key).digest("hex");
