@@ -7,10 +7,19 @@ const backendServers = [
 ];
 
 function selectServer(servers) {
-  for (const server in servers) {
-    server.currentWeight += 1;
-    if (server.currentWeight <= server.weight) {
-      return server;
+  for (let i = 0; i < servers.length; i++) {
+    servers[i].currentWeight += 1;
+    if (i == servers.length - 1) {
+      if (servers[i].currentWeight <= servers[i].weight) {
+        return servers[i];
+      } else {
+        for (const server of servers) {
+          server.currentWeight = 0;
+        }
+      }
+    }
+    if (servers[i].currentWeight <= servers[i].weight) {
+      return servers[i];
     }
   }
 }
