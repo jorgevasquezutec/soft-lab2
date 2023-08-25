@@ -4,6 +4,18 @@ const fs = require('fs');
 
 const backendServers = JSON.parse(fs.readFileSync('backendServers.json', 'utf8'));
 
+backendServers.sort((a, b) => {
+  if (a.weight > b.weight) {
+    return -1;
+  }
+
+  if (a.weight < b.weight) {
+    return 1;
+  }
+
+  return 0;
+})
+
 console.log({ backendServers });
 
 function selectServer(servers) {
@@ -16,8 +28,12 @@ function selectServer(servers) {
         for (const server of servers) {
           server.currentWeight = 0;
         }
+
+        servers[0].currentWeight += 1;
+        return servers[0];
       }
     }
+
     if (servers[i].currentWeight <= servers[i].weight) {
       return servers[i];
     }
