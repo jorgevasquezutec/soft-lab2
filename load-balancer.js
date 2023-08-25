@@ -1,14 +1,10 @@
 const http = require("http");
+const fs = require('fs');
 
 
 const backendServers = JSON.parse(fs.readFileSync('backendServers.json', 'utf8'));
 
-
-// const backendServers = [
-//   { address: "localhost", port: 5000, weight: 5, currentWeight: 0 },
-//   { address: "localhost", port: 5001, weight: 2, currentWeight: 0 },
-//   { address: "localhost", port: 5002, weight: 1, currentWeight: 0 },
-// ];
+console.log({ backendServers });
 
 function selectServer(servers) {
   for (let i = 0; i < servers.length; i++) {
@@ -30,7 +26,7 @@ function selectServer(servers) {
 
 const proxyServer = http.createServer((req, res) => {
   const selectedServer = selectServer(backendServers);
-  console.log({selectedServer});
+  console.log({ selectedServer });
 
   const proxyRequest = http.request(
     {
