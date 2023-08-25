@@ -1,10 +1,11 @@
+import { sleep } from 'k6';
 import http from 'k6/http';
 
 const host = 'http://localhost:8080';
 
 export const options = {
-  vus: 500,
-  duration: '60s',
+  vus: 20,
+  duration: '15s',
 };
 
 export default function() {
@@ -16,7 +17,7 @@ export default function() {
   //   },
   // };
 
-  http.get(`${host}/hello`);
+  http.get(`${host}`);
 
   sleep(1);
 }
