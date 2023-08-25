@@ -27,6 +27,15 @@ services:
         - "5002:5000"
       networks:
         - lab1-soft
+  app4:
+      build: 
+        context: .
+        dockerfile: Dockerfile
+      image: app4
+      ports:
+        - "5003:5000"
+      networks:
+        - lab1-soft
 
 networks:
   lab1-soft:

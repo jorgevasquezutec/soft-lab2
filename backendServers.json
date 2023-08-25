@@ -14,7 +14,13 @@
     {
         "address": "localhost",
         "port": 5002,
-        "weight": 1,
+        "weight": 10,
+        "currentWeight": 0
+    },
+    {
+        "address": "localhost",
+        "port": 5003,
+        "weight": 4,
         "currentWeight": 0
     }
 ]
