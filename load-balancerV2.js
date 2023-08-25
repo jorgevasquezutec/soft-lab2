@@ -1,23 +1,26 @@
 const http = require("http");
-const crypto = require("crypto");
 
 const backendServers = [
-  { address: "localhost", port: 3000 },
-  { address: "localhost", port: 3001 },
-  { address: "localhost", port: 3002 },
+  { address: "localhost", port: 5000, weight: 5},
+  { address: "localhost", port: 3001, weight: 2 },
+  { address: "localhost", port: 3002, weight: 1 },
 ];
 
-function hashServer(key) {
-  const hash = crypto.createHash("md5").update(key).digest("hex");
-  const serverIndex = parseInt(hash, 16) % backendServers.length;
-  return backendServers[serverIndex];
+function selectServer(numReq) {
+  for (let i = 0; i < backendServers.length; i++) {
+      if( numReq % backendServers[i].weight == 0){
+          return backendServers[i];
+      }
+  }
 }
 
+const numReq = 1;
+
 const proxyServer = http.createServer((req, res) => {
-  // const clientIP = req.connection.remoteAddress;
-  //randomValue 
-  const clientIP = Math.random().toString();
-  const selectedServer = hashServer(clientIP);
+
+
+
+  const selectedServer = selectServer(backendServers);
 
   const proxyRequest = http.request(
     {
